@@ -112,11 +112,11 @@ class NotificacionesEmail {
 	 * @access publico
 	 * @link https://github.com/mundoSICA/notificaciones-email
 	 */
-    public function configurar($config) {
-        $this->config = $config;
-    }
+	public function configurar($config) {
+		$this->config = $config;
+	}
     
-	/*
+	/**
 	 * Envia los correos electronicos segun la configuración
 	 *
 	 * @param tipo $parametro1 descripción del párametro 1.
