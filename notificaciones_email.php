@@ -28,10 +28,10 @@ class NotificacionesEmail {
 	 ************************************************************************************/
 	 
 	/**
-	* Revisa si el campo check es texto, sin caracteres especiales.
+	* Revisa si el campo $check es texto, sin caracteres especiales.
 	* 
 	* @param string $check el valor a revisar
-	* @return  boolean Success
+	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	*/
@@ -40,10 +40,10 @@ class NotificacionesEmail {
 		return preg_match('/^[' . $validChars . ']*$/i',$check);
 	}
 	/**
-	* Revisa si el campo check corresponde a una dirección de correo valida.
+	* Revisa si el campo $check corresponde a una dirección de correo valida.
 	* 
 	* @param string $check el valor a revisar.
-	* @return  boolean Success
+	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	*/
@@ -51,10 +51,10 @@ class NotificacionesEmail {
 		return preg_match('/^[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}$/i',$check);
 	}
 	/**
-	* Revisa si el campo check es un número telefonico valido
+	* Revisa si el campo $check es un número telefonico valido
 	* 
 	* @param string $check el valor a revisar.
-	* @return  boolean Success
+	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	*/
@@ -63,10 +63,10 @@ class NotificacionesEmail {
 		return preg_match('/^[' . $validChars . ']{7,30}$/i',$check);
 	}
 	/**
-	* Revisa si el campo check es una fecha generada por el Plugin JQueryDateTimePicker.
+	* Revisa si el campo $check es una fecha generada por el Plugin JQueryDateTimePicker.
 	*
 	* @param string $check value to check
-	* @return boolean Resultado
+	* @return boolean Resultado de la validación
 	* @access publico
 	* @link http://www.projectcodegen.com/JQueryDateTimePicker.aspx
 	*/
@@ -75,10 +75,10 @@ class NotificacionesEmail {
 		return preg_match($regex,$check);
 	}
 	/**
-	* Revisa si el campo check corresponde a una URL valida.
+	* Revisa si el campo $check corresponde a una URL valida.
 	*
 	* @param string $check valor a revisar
-	* @return boolean Resultado
+	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	*/
@@ -93,18 +93,19 @@ class NotificacionesEmail {
 		return preg_match($regex,$check);
 	}
 	/**
-	 * Init to object
+	 * Inicializa el objeto 
 	 *
-	 * @param array $config arreglo de configuracion
+	 * @param array $config arreglo de configuración
 	 * @return void
 	 * @access publico
 	 * @link https://github.com/mundoSICA/notificaciones-email
 	 */
-	public function __construct($config) {
-        	$this->configurar($config);
+	public function __construct($config=null) {
+			if( is_array($config) && !empty($config) )
+				$this->cofigurar($config);
 	}
 	/**
-	 * Setea la configuracion.
+	 * Setea la configuración.
 	 *
 	 * @param array $config arreglo de configuracion
 	 * @return void
@@ -116,7 +117,7 @@ class NotificacionesEmail {
     }
     
 	/*
-	 * Envia los correos electronicos segun la configuracion
+	 * Envia los correos electronicos segun la configuración
 	 *
 	 * @param tipo $parametro1 descripción del párametro 1.
 	 * @return Boolean el resultado de la acción.
