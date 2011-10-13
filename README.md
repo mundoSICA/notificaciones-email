@@ -57,8 +57,8 @@ Las reglas de validación se deben de ubicar en el arreglo `validaciones`. de la
  - **Email**
  - **Phone**
  - **Url**
- - **IPv4** (_todavia no implementada_)
- - **IPv6** (_todavia no implementada_)
+ - **IPv4**
+ - **IPv6**
 
 ##Licencia.
 

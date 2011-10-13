@@ -1,5 +1,5 @@
 <?php
-/*   _   _   _   _   _   _   _   _   _   _   _   _   _  
+/**  _   _   _   _   _   _   _   _   _   _   _   _   _  
  *  / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
  * ( m | u | n | d | o | s | i | c | a | . | c | o | m )
  *  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
@@ -15,7 +15,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @since         NotificacionesEmail v 0.1Alpha
  * 
- */
+ ****************************************************************************************/
 
 class NotificacionesEmail {
 	/** variables a usar **/
@@ -34,7 +34,7 @@ class NotificacionesEmail {
 	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
-	*/
+	**/
 	function validText($check=null) {
 		$validChars = 'a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#';
 		return preg_match('/^[' . $validChars . ']*$/i',$check);
@@ -46,9 +46,48 @@ class NotificacionesEmail {
 	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
-	*/
+	**/
 	function validEmail($check=null) {
 		return preg_match('/^[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}$/i',$check);
+	}
+	/**
+	* Revisa si el campo $check corresponde a una dirección IP versión 4.
+	* 		Ejemplos: 127.0.0.1, 192.168.10.123, 203.211.24.8
+	* 
+	* @param string $check el valor a revisar.
+	* @return boolean Resultado de la validación
+	* @access publico
+	* @link https://github.com/mundoSICA/notificaciones-email
+	**/
+	function validIPv4( $check=null ){
+		$pattern = '(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])';
+		return preg_match('/^' . $pattern . '$/', $check);
+	}
+	/**
+	* Revisa si el campo $check corresponde a una dirección IP versión 6.
+	* 		Ejemplos: ::1, 2001:0db8::1428:57ab
+	* 
+	* @param string $check el valor a revisar.
+	* @return boolean Resultado de la validación
+	* @access publico
+	* @link https://github.com/mundoSICA/notificaciones-email
+	**/
+	function validIPv6( $check=null ){
+		$pattern  = '((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}';
+		$pattern .= '(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})';
+		$pattern .= '|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})';
+		$pattern .= '(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)';
+		$pattern .= '{4}(:[0-9A-Fa-f]{1,4}){0,1}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2}))';
+		$pattern .= '{3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){0,2}';
+		$pattern .= '((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|';
+		$pattern .= '((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){0,3}';
+		$pattern .= '((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2}))';
+		$pattern .= '{3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4})';
+		$pattern .= '{0,4}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)';
+		$pattern .= '|((:[0-9A-Fa-f]{1,4}){1,2})))|(:(:[0-9A-Fa-f]{1,4}){0,5}((:((25[0-5]|2[0-4]';
+		$pattern .= '\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4})';
+		$pattern .= '{1,2})))|(((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))(%.+)?';
+		return preg_match('/^' . $pattern . '$/', $check);
 	}
 	/**
 	* Revisa si el campo $check es un número telefonico valido
@@ -57,7 +96,7 @@ class NotificacionesEmail {
 	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
-	*/
+	**/
 	function validPhone($check=null) {
 		$validChars = '-0-9\s\(\)';
 		return preg_match('/^[' . $validChars . ']{7,30}$/i',$check);
@@ -69,7 +108,7 @@ class NotificacionesEmail {
 	* @return boolean Resultado de la validación
 	* @access publico
 	* @link http://www.projectcodegen.com/JQueryDateTimePicker.aspx
-	*/
+	**/
 	function validDateTime( $check ) {
 		$regex = '%^(0[1-9]|1[0-2])/(0[1-9]|[1-3][0-9])/([1-2][0-9]{3}) (0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)%';
 		return preg_match($regex,$check);
@@ -81,7 +120,7 @@ class NotificacionesEmail {
 	* @return boolean Resultado de la validación
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
-	*/
+	**/
 	function ValidUrl( $check ) {
 		$validChars = '([' . preg_quote('!"$&\'()*+,-.@_:;=~[]') . '\/0-9a-z\p{L}\p{N}]|(%[0-9a-f]{2}))';
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
@@ -93,37 +132,37 @@ class NotificacionesEmail {
 		return preg_match($regex,$check);
 	}
 	/**
-	 * Inicializa el objeto 
-	 *
-	 * @param array $config arreglo de configuración
-	 * @return void
-	 * @access publico
-	 * @link https://github.com/mundoSICA/notificaciones-email
-	 */
+	* Inicializa el objeto 
+	*
+	* @param array $config arreglo de configuración
+	* @return void
+	* @access publico
+	* @link https://github.com/mundoSICA/notificaciones-email
+	**/
 	public function __construct($config=null) {
 			if( is_array($config) && !empty($config) )
 				$this->cofigurar($config);
 	}
 	/**
-	 * Setea la configuración.
-	 *
-	 * @param array $config arreglo de configuracion
-	 * @return void
-	 * @access publico
-	 * @link https://github.com/mundoSICA/notificaciones-email
-	 */
+	* Setea la configuración.
+	*
+	* @param array $config arreglo de configuracion
+	* @return void
+	* @access publico
+	* @link https://github.com/mundoSICA/notificaciones-email
+	**/
 	public function configurar($config) {
 		$this->config = $config;
 	}
     
 	/**
-	 * Envia los correos electronicos segun la configuración
-	 *
-	 * @param tipo $parametro1 descripción del párametro 1.
-	 * @return Boolean el resultado de la acción.
-	 * @access publico
-	 * @link https://github.com/mundoSICA/notificaciones-email
-	 */
+	* Envia los correos electronicos segun la configuración
+	*
+	* @param tipo $parametro1 descripción del párametro 1.
+	* @return Boolean el resultado de la acción.
+	* @access publico
+	* @link https://github.com/mundoSICA/notificaciones-email
+	**/
 	function sendMails() {
 		$typesValidations = array(
 			'Text' => 'Texto invalido',
