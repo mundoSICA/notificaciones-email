@@ -35,7 +35,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
-	function validText($check=null) {
+	function validText( $check=null ) {
 		$validChars = 'a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#';
 		return preg_match('/^[' . $validChars . ']*$/i',$check);
 	}
@@ -47,7 +47,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
-	function validEmail($check=null) {
+	function validEmail( $check=null ) {
 		return preg_match('/^[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}$/i',$check);
 	}
 	/**
@@ -97,7 +97,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
-	function validPhone($check=null) {
+	function validPhone( $check=null ) {
 		$validChars = '-0-9\s\(\)';
 		return preg_match('/^[' . $validChars . ']{7,30}$/i',$check);
 	}
@@ -109,9 +109,9 @@ class NotificacionesEmail {
 	* @access publico
 	* @link http://www.projectcodegen.com/JQueryDateTimePicker.aspx
 	**/
-	function validDateTime( $check ) {
-		$regex = '%^(0[1-9]|1[0-2])/(0[1-9]|[1-3][0-9])/([1-2][0-9]{3}) (0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)%';
-		return preg_match($regex,$check);
+	function validDateTime( $check=null ) {
+		$pattern = '%^(0[1-9]|1[0-2])/(0[1-9]|[1-3][0-9])/([1-2][0-9]{3}) (0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)%';
+		return preg_match($pattern,$check);
 	}
 	/**
 	* Revisa si el campo $check corresponde a una URL valida.
@@ -121,15 +121,15 @@ class NotificacionesEmail {
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
-	function ValidUrl( $check ) {
+	function ValidUrl( $check=null ) {
 		$validChars = '([' . preg_quote('!"$&\'()*+,-.@_:;=~[]') . '\/0-9a-z\p{L}\p{N}]|(%[0-9a-f]{2}))';
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
-		$regex = '/^(?:(?:https?|ftps?|file|news|gopher):\/\/)' . '(?:' . $hostname . ')' .
+		$pattern = '/^(?:(?:https?|ftps?|file|news|gopher):\/\/)' . '(?:' . $hostname . ')' .
 			'(?::[1-9][0-9]{0,4})?' .
 			'(?:\/?|\/' . $validChars . '*)?' .
 			'(?:\?' . $validChars . '*)?' .
 			'(?:#' . $validChars . '*)?$/iu';
-		return preg_match($regex,$check);
+		return preg_match($pattern,$check);
 	}
 	/**
 	* Inicializa el objeto 
@@ -139,7 +139,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
-	public function __construct($config=null) {
+	public function __construct( $config=null ) {
 			if( is_array($config) && !empty($config) )
 				$this->cofigurar($config);
 	}
