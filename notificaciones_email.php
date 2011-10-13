@@ -36,8 +36,8 @@ class NotificacionesEmail {
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
 	function validText( $check=null ) {
-		$validChars = 'a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#';
-		return preg_match('/^[' . $validChars . ']*$/i',$check);
+		$pattern = '[a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#]*';
+		return preg_match('/^' . $pattern . '$/i',$check);
 	}
 	/**
 	* Revisa si el campo $check corresponde a una dirección de correo valida.
@@ -48,7 +48,8 @@ class NotificacionesEmail {
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
 	function validEmail( $check=null ) {
-		return preg_match('/^[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}$/i',$check);
+		$pattern = '[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}';
+		return preg_match('/^' . $pattern . '$/i',$check);
 	}
 	/**
 	* Revisa si el campo $check corresponde a una dirección IP versión 4.
@@ -98,8 +99,8 @@ class NotificacionesEmail {
 	* @link https://github.com/mundoSICA/notificaciones-email
 	**/
 	function validPhone( $check=null ) {
-		$validChars = '-0-9\s\(\)';
-		return preg_match('/^[' . $validChars . ']{7,30}$/i',$check);
+		$pattern = '[-0-9\s\(\)]{7,30}';
+		return preg_match('/^' . $pattern . '$/i',$check);
 	}
 	/**
 	* Revisa si el campo $check es una fecha generada por el Plugin JQueryDateTimePicker.
