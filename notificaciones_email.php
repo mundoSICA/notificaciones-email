@@ -10,11 +10,12 @@
  * @file          notificaciones_email.php
  * @package       NotificacionesEmail
  * @Description   Envia notificaciones por email realizando validaciones previas.
+ *                Algunas ideas extraidas del Objeto Validation de cakePHP (cakePHPv1.2.0.3830/cake/libs/validation.php)
  * @copyright     2011, SICÁ - Soluciones Integrales en Computación Áplicada.
- * @link          https://github.com/mundoSICA/notificaciones-email
+ * @link          http://mundosica.github.com/notificaciones_email/
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @since         NotificacionesEmail v 0.1Alpha
- * 
+ * @since         NotificacionesEmail v 0.1
+ *
  ****************************************************************************************/
 
 class NotificacionesEmail {
@@ -33,10 +34,10 @@ class NotificacionesEmail {
 	* @param string $check el valor a revisar
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function validText( $check=null ) {
-		$pattern = '[a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#]*';
+		$pattern = '[-_a-z0-9 .,áéíóúüÁÉÍÓÚÜñÑ#]*';
 		return preg_match('/^' . $pattern . '$/i',$check);
 	}
 	/**
@@ -45,10 +46,11 @@ class NotificacionesEmail {
 	* @param string $check el valor a revisar.
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function validEmail( $check=null ) {
-		$pattern = '[A-Z0-9._%-]+@[a-z][A-Z0-9.-]+\\.[A-Z]{2,4}';
+		$pattern = '[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@';
+		$pattern .= '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
 		return preg_match('/^' . $pattern . '$/i',$check);
 	}
 	/**
@@ -58,7 +60,7 @@ class NotificacionesEmail {
 	* @param string $check el valor a revisar.
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function validIPv4( $check=null ){
 		$pattern = '(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])';
@@ -71,7 +73,7 @@ class NotificacionesEmail {
 	* @param string $check el valor a revisar.
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function validIPv6( $check=null ){
 		$pattern  = '((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}';
@@ -96,7 +98,7 @@ class NotificacionesEmail {
 	* @param string $check el valor a revisar.
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function validPhone( $check=null ) {
 		$pattern = '[-0-9\s\(\)]{7,30}';
@@ -120,7 +122,7 @@ class NotificacionesEmail {
 	* @param string $check valor a revisar
 	* @return boolean Resultado de la validación
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function ValidUrl( $check=null ) {
 		$validChars = '([' . preg_quote('!"$&\'()*+,-.@_:;=~[]') . '\/0-9a-z\p{L}\p{N}]|(%[0-9a-f]{2}))';
@@ -138,7 +140,7 @@ class NotificacionesEmail {
 	* @param array $config arreglo de configuración
 	* @return void
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	public function __construct( $config=null ) {
 			if( is_array($config) && !empty($config) )
@@ -150,7 +152,7 @@ class NotificacionesEmail {
 	* @param array $config arreglo de configuracion
 	* @return void
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	public function configurar($config) {
 		$this->config = $config;
@@ -162,7 +164,7 @@ class NotificacionesEmail {
 	* @param tipo $parametro1 descripción del párametro 1.
 	* @return Boolean el resultado de la acción.
 	* @access publico
-	* @link https://github.com/mundoSICA/notificaciones-email
+	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function sendMails() {
 		$typesValidations = array(
