@@ -3,6 +3,18 @@ Notificaciones por Email.
 
 >**NotificacionesEmail** Es un _Objeto_ empotrado en un simple script(_ideal en sitios que sólo requieren area de contacto_) escrito en _PHP_ el cual nos permite enviar notificaciones por correo eléctronico, al tiempo que nos realiza una serie de validaciones correspondiente a la configuración que determinemos al crear dicho _Objeto_.
 
+##Como obtener el proyecto
+
+###Descarga directa:
+Usted puede descargar el proyecto desde la siguientes Direcciones:
+
+<a href="https://github.com/mundoSICA/notificaciones-email/tarball/master" class="button icon arrowdown">Descarga directa <b>.tar.gz</b></a>
+<a href="https://github.com/mundoSICA/notificaciones-email/zipball/master" class="button icon arrowdown">Descarga directa <b>.zip</b></a>
+
+###Clona este proyecto.
+Usted puede modificar este proyecto obteniedo la version más reciente, con el comando `git` de la siguiente manera:
+
+	git clone git@github.com:mundoSICA/notificaciones-email.git
 
 ##Modo de uso.
 
