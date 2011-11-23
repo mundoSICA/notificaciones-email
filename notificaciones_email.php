@@ -124,7 +124,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link http://mundosica.github.com/notificaciones_email/
 	**/
-	function ValidUrl( $check=null ) {
+	function validUrl( $check=null ) {
 		$validChars = '([' . preg_quote('!"$&\'()*+,-.@_:;=~[]') . '\/0-9a-z\p{L}\p{N}]|(%[0-9a-f]{2}))';
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
 		$pattern = '/^(?:(?:https?|ftps?|file|news|gopher):\/\/)' . '(?:' . $hostname . ')' .
@@ -144,7 +144,7 @@ class NotificacionesEmail {
 	**/
 	public function __construct( $config=null ) {
 			if( is_array($config) && !empty($config) )
-				$this->cofigurar($config);
+				$this->configurar($config);
 	}
 	/**
 	* Setea la configuración.
@@ -184,7 +184,7 @@ class NotificacionesEmail {
 					continue;
 				if( isset( $typesValidations[$rule] ) ){
 					if( !$this->{'valid' . $rule }($value_field) )
-						$this->errors[]=$typesValidations[$rule] . " en el campo <b>$field</b>";
+						array_push($this->errors, $typesValidations[$rule] . " en el campo <b>$field</b>");
 				}
 			endforeach;
 		endforeach;
