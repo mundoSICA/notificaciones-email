@@ -168,23 +168,26 @@ class NotificacionesEmail {
 	**/
 	function sendMails() {
 		$typesValidations = array(
-			'Text' => 'Texto invalido',
-			'Email' => 'Correo electrinico Invalido',
-			'Phone' => 'Telefono Invalido',
-			'DateTime' => 'Fecha invalida',
-			'Url' => 'Direccion URL invalida'
+			'Text' => 'Texto invalido en el campo <b>%s</b>',
+			'Email' => 'Correo electrinico Invalido en el campo <b>%s</b>',
+			'Phone' => 'Telefono Invalido en el campo <b>%s</b>',
+			'DateTime' => 'Fecha invalida en el campo <b>%s</b>',
+			'Url' => 'Direccion URL invalida en el campo <b>%s</b>',
+			'Required' =>  'Error campo <b>%s</b> Requerido'
 		);
 		foreach($this->config['validaciones'] as $field=>$rules):
+			if( !isset($_POST[$field]) ):
+					if( in_array('Required',$rules,true) )
+						array_push($this->errors, sprintf($typesValidations['Required'],$field));
+					continue;
+			endif;
 			$value_field = $_POST[$field];
-			#ALERT: In future check if Required no is present in the firts positions
-			if($value_field == '' && $rules[0] != 'Required')
-				continue;
 			foreach($rules as $rule):
 				if($rule == 'Required')
 					continue;
 				if( isset( $typesValidations[$rule] ) ){
 					if( !$this->{'valid' . $rule }($value_field) )
-						array_push($this->errors, $typesValidations[$rule] . " en el campo <b>$field</b>");
+						array_push($this->errors, array_push($this->errors, sprintf($typesValidations['Required'],$field)));
 				}
 			endforeach;
 		endforeach;
