@@ -20,9 +20,36 @@
 
 class NotificacionesEmail {
 	/** variables a usar **/
-	var $msg = '';
-	var $errors = array();
-	var $config = null;
+	public $msg = '';
+	public $errors = array();
+	public $config = null;
+	
+	protected $validaciones = array(
+			'Text' => array(
+							'error' => 'Texto invalido en el campo <strong>%s</strong>',
+							'regex' => '',
+						),
+			'Email' => array(
+							'error' => 'Correo electrinico Invalido en el campo <strong>%s</strong>',
+							'regex' => '',
+						),
+			'Phone' => array(
+							'error' => 'Telefono Invalido en el campo <strong>%s</strong>',
+							'regex' => '',
+						),
+			'DateTime' => array(
+							'error' => 'Fecha invalida en el campo <strong>%s</strong>',
+							'regex' => '',
+						),
+			'Url' => array(
+							'error' => 'Dirección URL invalida en el campo <strong>%s</strong>',
+							'regex' => '',
+						),
+			'Required' =>  array(
+							'error' => 'Error campo <strong>%s</strong> Requerido',
+							'regex' => '',
+						)
+	);
 
 	/************************************************************************************
 	 *                             Functiones de validación                             *
@@ -142,9 +169,9 @@ class NotificacionesEmail {
 	* @access publico
 	* @link http://mundosica.github.com/notificaciones_email/
 	**/
-	public function __construct( $config=null ) {
-			if( is_array($config) && !empty($config) )
-				$this->configurar($config);
+	public function __construct( $config = null ) {
+			if( is_array( $config ) && !empty( $config ) )
+				$this->configurar( $config );
 	}
 	/**
 	* Setea la configuración.
@@ -154,7 +181,7 @@ class NotificacionesEmail {
 	* @access publico
 	* @link http://mundosica.github.com/notificaciones_email/
 	**/
-	public function configurar($config) {
+	public function configurar( $config ) {
 		$this->config = $config;
 	}
     
@@ -167,27 +194,19 @@ class NotificacionesEmail {
 	* @link http://mundosica.github.com/notificaciones_email/
 	**/
 	function sendMails() {
-		$typesValidations = array(
-			'Text' => 'Texto invalido en el campo <b>%s</b>',
-			'Email' => 'Correo electrinico Invalido en el campo <b>%s</b>',
-			'Phone' => 'Telefono Invalido en el campo <b>%s</b>',
-			'DateTime' => 'Fecha invalida en el campo <b>%s</b>',
-			'Url' => 'Direccion URL invalida en el campo <b>%s</b>',
-			'Required' =>  'Error campo <b>%s</b> Requerido'
-		);
 		foreach($this->config['validaciones'] as $field=>$rules):
-			if( !isset($_POST[$field]) ):
+			if( !isset($_POST[$field]) || $_POST[$field] == "" ):
 					if( in_array('Required',$rules,true) )
-						array_push($this->errors, sprintf($typesValidations['Required'],$field));
+						array_push($this->errors, sprintf($this->validaciones['Required']['error'], $field ) );
 					continue;
 			endif;
 			$value_field = $_POST[$field];
 			foreach($rules as $rule):
 				if($rule == 'Required')
 					continue;
-				if( isset( $typesValidations[$rule] ) ){
+				if( isset( $this->validaciones[$rule] ) ){
 					if( !$this->{'valid' . $rule }($value_field) )
-						array_push($this->errors, array_push($this->errors, sprintf($typesValidations['Required'],$field)));
+						array_push($this->errors, sprintf($this->validaciones['Required']['error'], $field) );
 				}
 			endforeach;
 		endforeach;
@@ -215,10 +234,10 @@ class NotificacionesEmail {
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=utf8' . "\r\n";
 		// Additional headers
-		#$headers .= 'To: Fitorec <chanerec@gmail.com>,Registros <registro@enoaxaca.com.mx>,Eymard <eymard@mundosica.com>' . "\r\n";
+		#$headers .= 'To: Fitorec <programacion@mundosica.com>,Registros <registro@enoaxaca.com.mx>' . "\r\n";
 		$headers .= 'From: ' .$this->config['origen'] . "\r\n";
 		#$headers .= 'Cc: eymard@mundosica.com' . "\r\n";
-		#$headers .= 'Bcc: fitorec@mundosica.com' . "\r\n";
+		#$headers .= 'Bcc: programacion@mundosica.com' . "\r\n";
 		if( @mail($this->config['destino'], $subject, $message, $headers) )
 			return true;
 		else
