@@ -64,6 +64,7 @@ Las reglas de validación se deben de ubicar en el arreglo `validaciones`. de la
 
 ###Lista de las reglas aceptadas:
 
+ - **Required**
  - **Text**
  - **DateTime**
  - **Email**
