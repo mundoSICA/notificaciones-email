@@ -215,21 +215,29 @@ class NotificacionesEmail {
 		// subject
 		$subject = $this->config['asunto'];
 		$message = "<html>
-		<head>
-		  <title>{$subject}</title>
-		</head>
+	<head>
+		<title>{$subject}</title>
 		<style type='text/css'>
 			body{ background: #E6E6E6;color:#111}
 		</style>
-		<body>
-		  <h2>{$subject}</h2>
-		  <h3>Datos</h3>
-		  <ul>";
+	</head>
+	<body>
+		<h2>{$subject}</h2>
+		<h3>Datos</h3>
+		<ul>";
 		 ##
 		 foreach($this->config['validaciones'] as $field=>$rules):
-			$message .= '<li><b>'.$field.': </b> '.$_POST[$field].'</li>';
-		 endforeach;
-		$message .= ' </ul></body></html>';
+			$message .= "\n\t\t<li><b>{$field}: </b> ";
+			if( is_array( $_POST[$field])){
+				$message .= "\n\t\t\t<ul>";
+				foreach($_POST[$field] as $f=>$v)
+					$message .= "\n\t\t\t\t<li>".htmlspecialchars($v).'</li>';
+				$message .= "\n\t\t\t</ul>";
+			}else{
+				$message .= htmlspecialchars($_POST[$field]).'</li>';
+			}
+		endforeach;
+		$message .= "\n\t\t</ul>\n\t</body>\n</html>";
 		// To send HTML mail, the Content-type header must be set
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=utf8' . "\r\n";
