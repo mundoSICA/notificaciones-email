@@ -24,7 +24,7 @@ Usted puede modificar este proyecto obteniedo la version más reciente, con el c
 	//Definimos la configuración a usar
 	$config = array(
 		'origen' => 'Contacto programación SICÁ <programacion@mundosica.com>',
-		'destino' => 'eymard@mundosica.com, ibaangr@gmail.com, chanerec@gmail.com',
+		'destino' => 'eymard@mundosica.com, igarcia@mundosica.com, programacion@mundosica.com',
 		'asunto' => 'Algun asunto',
 		'validaciones' => array(
 			'nombre'    => array('Required','Text'),
